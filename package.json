@@ -1,0 +1,38 @@
+{
+  "name": "ew-uuid",
+  "version": "0.0.16",
+  "description": "Example of bundling EdgeWorker with TypeScript modules",
+  "license": "MIT",
+  "type": "module",
+  "config": {
+    "ewid": "84882",
+    "edgerc_section": "gss",
+    "accountswitchkey": "B-M-1YX7F48:1-8BYUX",
+    "description": "generate uuid",
+    "ew_name": "ew-uuid",
+    "tier": "200",
+    "ew_group_id": "93068"
+  },
+  "scripts": {
+    "build": "rollup -c && npm run build-bundle-json",
+    "build-bundle-json": "cd built && echo '{\"edgeworker-version\":\"'$npm_package_version'\",\"description\":\"'$npm_package_config_description'\"}' > bundle.json && npm run build-ew-tgz",
+    "build-ew-tgz": "cd built && tar czvf ../dist/'ew_'$npm_package_config_ewid'_'$npm_package_version'.tgz' * && npm run activate-edgeworker",
+    "upload-edgeworker": "akamai edgeworkers --section $npm_package_config_edgerc_section --accountkey $npm_package_config_accountswitchkey upload $npm_package_config_ewid --bundle dist/'ew_'$npm_package_config_ewid'_'$npm_package_version'.tgz'",
+    "activate-edgeworker": "npm run upload-edgeworker && akamai edgeworkers --section $npm_package_config_edgerc_section --accountkey $npm_package_config_accountswitchkey activate $npm_package_config_ewid staging $npm_package_version",
+    "generate-token": "akamai edgeworkers --section $npm_package_config_edgerc_section --accountkey $npm_package_config_accountswitchkey auth --expiry 600 $npm_package_config_hostname",
+    "list-groups": "akamai edgeworkers lg --section $npm_package_config_edgerc_section  --accountkey $npm_package_config_accountswitchkey",
+    "create-ew-id": "akamai edgeworkers create-id  --section $npm_package_config_edgerc_section  --accountkey $npm_package_config_accountswitchkey $npm_package_config_ew_group_id -restier $npm_package_config_tier $npm_package_config_ew_name"
+  },
+  "devDependencies": {
+    "@rollup/plugin-inject": "^5.0.5",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/uuid": "^9.0.8",
+    "tslib": "^2.6.2",
+    "typescript": "^5.4.5",
+    "uuid": "^9.0.1"
+  },
+  "dependencies": {
+    "@types/akamai-edgeworkers": "^1.1.16"
+  }
+}
