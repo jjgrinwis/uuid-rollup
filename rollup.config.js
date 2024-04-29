@@ -7,9 +7,9 @@ export default {
   input: "main.ts", // Your main input file
   output: {
     dir: "built",
-    format: "es", // CommonJS format (use 'es' for ES module format which Akamai Edgeworkers is using
+    format: "es", // CommonJS format (use 'es' for ES module format which Akamai EdgeWorkers is using
   },
-  external: ["crypto"], // if there is a reference to crypto, don't "rollup crypto"
+  external: ["crypto", "cookies"], // if there is a reference to crypto, don't "rollup crypto"
   plugins: [
     resolve(),
     typescript(),
