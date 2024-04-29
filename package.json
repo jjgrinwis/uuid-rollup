@@ -1,6 +1,6 @@
 {
   "name": "ew-uuid",
-  "version": "0.0.21",
+  "version": "0.0.24",
   "description": "Example of bundling EdgeWorker with TypeScript modules",
   "license": "MIT",
   "type": "module",

@@ -9,7 +9,7 @@ export default {
     dir: "built",
     format: "es", // CommonJS format (use 'es' for ES module format which Akamai EdgeWorkers is using
   },
-  external: ["crypto", "cookies"], // if there is a reference to crypto, don't "rollup crypto"
+  external: [], // don't rollup these packages, EdgeWorker cookies for example.
   plugins: [
     resolve(),
     typescript(),
